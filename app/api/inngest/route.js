@@ -1,11 +1,12 @@
+// app/api/inngest/route.js
 import { serve } from "inngest/next";
-import { inngest } from "@/config/inngest";
-import { createClient } from 'inngest';
+import { inngest, syncUserCreation, syncUserUpdation, syncUserDeletion } from "@/config/inngest";
 
-// VERY IMPORTANT FOR VERCEL + NEXT 16
+// IMPORTANT: Required for Next.js 16 + Vercel
 export const runtime = "nodejs";
 
-export const { GET, POST, PUT } = serve({
+// Export API handlers for GET/POST
+export const { GET, POST } = serve({
   client: inngest,
-  functions: [],
+  functions: [syncUserCreation, syncUserUpdation, syncUserDeletion],
 });
